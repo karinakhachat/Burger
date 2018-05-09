@@ -1,61 +1,29 @@
+// Import the ORM to create functions that will interact with the database.
+var orm = require("../config/orm.js");
 
-$(function() {
-    $(".add-burger").on("click", function(event) {
-      var id = $(this).data("id");
-      var newBurger = $(this).data("newBurger");
-        
-      var newBurgerName = {
-        burger_name: newBurgerName
-      };
-  
-      // Send the PUT request.
-      $.ajax("/api/burgers/" + id, {
-        type: "PUT",
-        data: newBurgerName
-      }).then(
-        function() {
-          console.log("changed sleep to", newBurger);
-          // Reload the page to get the updated list
-          location.reload();
-        }
-      );
+var burger = {
+  all: function(cb) {
+    orm.all("burgers", function(res) {
+      cb(res);
     });
-  
-    $(".create-form").on("submit", function(event) {
-      // Make sure to preventDefault on a submit event.
-      event.preventDefault();
-  
-      var newCat = {
-        burger_name: $("#ca").val().trim(),
-        newBurgerName: $("[name=sleepy]:checked").val().trim()
-      };
-  
-      // Send the POST request.
-      $.ajax("/api/burgers", {
-        type: "POST",
-        data: newBurger
-      }).then(
-        function() {
-          console.log("created new cat");
-          // Reload the page to get the updated list
-          location.reload();
-        }
-      );
+  },
+  // The variables cols and vals are arrays.
+  create: function(cols, vals, cb) {
+    orm.create("burgers", cols, vals, function(res) {
+      cb(res);
     });
-  
-    $(".delete-burger").on("click", function(event) {
-      var id = $(this).data("id");
-  
-      // Send the DELETE request.
-      $.ajax("/api/burgers/" + id, {
-        type: "DELETE"
-      }).then(
-        function() {
-          console.log("deleted burger", id);
-          // Reload the page to get the updated list
-          location.reload();
-        }
-      );
+  },
+  update: function(objColVals, condition, cb) {
+    orm.update("burgers", objColVals, condition, function(res) {
+      cb(res);
     });
-  });
-  
+  },
+  delete: function(condition, cb) {
+    orm.delete("burgers", condition, function(res) {
+      cb(res);
+    });
+  }
+};
+
+// Export the database functions for the controller (catsController.js).
+module.exports = burger;
