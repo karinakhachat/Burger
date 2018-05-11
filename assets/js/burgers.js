@@ -1,7 +1,7 @@
 
 $(function() {
     $(".add-burger").on("click", function(event) {
-      var id = $(this).data("id");
+      var id = $(this).data("ca");
       var newBurger = $(this).data("newBurger");
         
       var newBurgerName = {
@@ -25,9 +25,9 @@ $(function() {
       // Make sure to preventDefault on a submit event.
       event.preventDefault();
   
-      var newCat = {
+      var newBurger = {
         burger_name: $("#ca").val().trim(),
-        newBurgerName: $("[name=sleepy]:checked").val().trim()
+        newBurgerName: $("[name=devoured]:checked").val().trim()
       };
   
       // Send the POST request.
@@ -36,7 +36,7 @@ $(function() {
         data: newBurger
       }).then(
         function() {
-          console.log("created new cat");
+          console.log("created new burger");
           // Reload the page to get the updated list
           location.reload();
         }

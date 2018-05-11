@@ -4,7 +4,9 @@
 
 <ul>
   {{#each burgers}}
+  {{!--this is a for loop itterating through the burgers object--}}
     {{#unless devoured}}
+    {{!--this is a if/else statement--}}
       {{> burgers/burger-block devoured=true}}
     {{/unless}}
   {{/each}}
