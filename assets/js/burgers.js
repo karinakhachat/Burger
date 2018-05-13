@@ -5,12 +5,15 @@ $(function() {
       var newBurger = $(this).data("newBurger");
         
       var newBurgerName = {
-        burger_name: newBurgerName
+        name: newBurger,
+        devoured: false
       };
+      console.log(newBurgerName);
   
       // Send the PUT request.
-      $.ajax("/api/burgers/" + id, {
-        type: "PUT",
+      $.ajax({
+        url: "/api/burgers/" + id,
+        type: "POST",
         data: newBurgerName
       }).then(
         function() {
@@ -26,7 +29,7 @@ $(function() {
       event.preventDefault();
   
       var newBurger = {
-        burger_name: $("#ca").val().trim(),
+        burgers_name: $("#ca").val().trim(),
         newBurgerName: $("[name=devoured]:checked").val().trim()
       };
   
